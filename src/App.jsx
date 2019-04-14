@@ -14,13 +14,13 @@ class App extends Component {
             
             <div className="full">
                 <Draggable>
-                    <div style={{
+                    <div id="mapForm" style={{
                         position: "absolute",
                         top: "50%",
                         left: "50%",
                         zIndex: 200
-                    }}>
-                        <MapForm />
+                        }}>
+                        <MapForm/>
                     </div>
                 </Draggable>
                 
