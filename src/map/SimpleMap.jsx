@@ -3,11 +3,7 @@ import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 
 class SimpleMap extends Component {
   static defaultProps = {
-<<<<<<< HEAD
-    position: [51.505, -0.09]
-=======
     position: [-23.596299, -46.635222]
->>>>>>> master
   };
 
   render() {
