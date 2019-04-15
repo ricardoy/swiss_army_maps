@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
+import Button from 'react-bootstrap/Button'
+import CloseButton from 'react-bootstrap/CloseButton'
 
 
 class MapForm extends Component {
@@ -12,6 +14,8 @@ class MapForm extends Component {
     render() {
       return (        
         <Form>
+            
+            {/* <CloseButton>Close</CloseButton> */}
             {/* <Form.Group controlId="exampleForm.ControlInput1">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control type="email" placeholder="name@example.com" />
@@ -40,6 +44,10 @@ class MapForm extends Component {
                 <Form.Label>Example textarea</Form.Label>
                 <Form.Control as="textarea" rows="10" />
             </Form.Group>
+            <Form.Group controlId="exampleForm.ControlTextarea1">
+                <Button>Ok</Button>
+            </Form.Group>
+            
         </Form>
       );
     }
