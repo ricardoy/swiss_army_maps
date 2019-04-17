@@ -6,33 +6,50 @@ import Button from 'react-bootstrap/Button'
 import CloseButton from 'react-bootstrap/CloseButton'
 import { jsonToString } from 'webpack/lib/Stats';
 
-class MapForm extends Component {
+class MapForm extends Component {  
+    PlotTypeEnum = {
+        POINTS: 1,
+        POLYLINE: 2,
+        BOUNDS: 3,
+        SEGMENTS: 4,
+        ENCODED_POLYLINE: 5
+    }
+
     static defaultProps = {
-        updatePosition: () => {},
+        updatePositions: () => {},
         cleanMarkers: () => {}
     };
 
     constructor(props) {
-        super(props);
-        this.textarea = React.createRef();
+        super(props)
+        this.textarea = React.createRef()
+        this.select_plot = React.createRef()
         this.generateListLatLng = this.generateListLatLng.bind(this)
         this.pattern = /(-?\d+(?:\.\d+)?).*?(-?\d+(?:\.\d+)?)/
     }
 
     generateListLatLng = (s) => {
-        let r = s.split('\n').filter((s) => {return this.pattern.exec(s) != null}).map((s) => {
-            let g = this.pattern.exec(s);
+        let r = s.split('\n').filter((s) => {
+            return this.pattern.exec(s) != null
+        }).map((s) => {
+            let g = this.pattern.exec(s)
             return [parseFloat(g[1]), parseFloat(g[2])]
         })
 
         if (r == null) {
             return []
         }
+
         return r
     }
 
     handleClick() {
-        this.props.updatePosition(this.generateListLatLng(this.textarea.current.value))
+        // alert(this.select_plot.current.value)
+
+        if (this.select_plot.current.value == this.PlotTypeEnum.POINTS) {
+            let latitudeLongitudeList = this.generateListLatLng(this.textarea.current.value)        
+            this.props.updatePositions(latitudeLongitudeList)
+        }
     }    
   
     render() {
@@ -40,21 +57,13 @@ class MapForm extends Component {
         <Form>
             
             {/* <CloseButton>Close</CloseButton> */}
+            
             {/* <Form.Group controlId="exampleForm.ControlInput1">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control type="email" placeholder="name@example.com" />
-            </Form.Group>
-            <Form.Group controlId="exampleForm.ControlSelect1">
-                <Form.Label>Example select</Form.Label>
-                <Form.Control as="select">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                </Form.Control>
-            </Form.Group>
-            <Form.Group controlId="exampleForm.ControlSelect2">
+            </Form.Group> */}
+
+            {/* <Form.Group controlId="exampleForm.ControlSelect2">
                 <Form.Label>Example multiple select</Form.Label>
                 <Form.Control as="select" multiple>
                 <option>1</option>
@@ -64,20 +73,33 @@ class MapForm extends Component {
                 <option>5</option>
                 </Form.Control>
             </Form.Group> */}
+
             <Form.Group controlId="exampleForm.ControlTextarea1">
                 {/* <Form.Label>Example textarea</Form.Label> */}
                 <Form.Control as="textarea" rows="10" ref={this.textarea}/>
             </Form.Group>
+
+
+            <Form.Group controlId="exampleForm.ControlSelect1">
+                {/* <Form.Label>Example select</Form.Label> */}
+                <Form.Control as="select" ref={this.select_plot}>
+                    <option value={this.PlotTypeEnum.POINTS}>Points</option>
+                    <option value={this.PlotTypeEnum.POLYLINE}>Polyline</option>
+                    <option value={this.PlotTypeEnum.BOUNDS}>Bounds</option>
+                    <option value={this.PlotTypeEnum.SEGMENTS}>Segments</option>
+                    <option value={this.PlotTypeEnum.ENCODED_POLYLINE}>Encoded Polyline</option>
+                </Form.Control>
+            </Form.Group>
             
             <Form.Group controlId="exampleForm.ControlTextarea1">
-                <Button onClick={this.handleClick.bind(this)}>Ok</Button>
+                <Button onClick={this.handleClick.bind(this)}>Map</Button>
                 <Button onClick={this.props.cleanMarkers}>Clear</Button>
             </Form.Group>
             
         </Form>
-      );
+        );
     }
-  }
-  
-  export default MapForm;
+}
+
+export default MapForm;
   

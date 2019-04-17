@@ -12,14 +12,24 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            position: [-23.596299, -46.635222],
             positions: []
         }
     }
 
-    updatePosition(e) {
+    updatePositions(e) {
+        if (e.length > 0) {
+            let newPosition = e.reduce((x, y) => [x[0]+y[0], x[1]+y[1]])            
+            newPosition = [newPosition[0] / e.length, newPosition[1] / e.length]
+            this.setState({
+                position: newPosition
+            })
+        }
+        
         this.setState(prevState => ({
-            positions: [...prevState.positions, ...e]
-          }))
+            positions: [...prevState.positions, ...e],            
+        }))
+    
     }
 
     cleanMarkers() {
@@ -37,11 +47,11 @@ class App extends Component {
                         top: "5%",
                         zIndex: 200
                         }}>
-                        <MapForm updatePosition={this.updatePosition.bind(this)} cleanMarkers={this.cleanMarkers.bind(this)} />
+                        <MapForm updatePositions={this.updatePositions.bind(this)} cleanMarkers={this.cleanMarkers.bind(this)} />
                     </div>
                 {/* </Draggable> */}
                 
-                <SimpleMap positions={this.state.positions} />
+                <SimpleMap position={this.state.position} positions={this.state.positions} />
             </div>
         
     );

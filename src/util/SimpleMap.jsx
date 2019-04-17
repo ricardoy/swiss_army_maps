@@ -19,7 +19,7 @@ class SimpleMap extends Component {
   render() {
     const markers = this.props.positions.map((p) => 
                 <Marker position={p} key={p.toString()}>                  
-                  <Popup>A pretty CSS3 popup.<br />Easily customizable.</Popup>
+                  <Popup>{p.toString()}</Popup>
                 </Marker>
               )
 
