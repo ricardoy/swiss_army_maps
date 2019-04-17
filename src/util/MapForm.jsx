@@ -25,15 +25,25 @@ class MapForm extends Component {
         this.textarea = React.createRef()
         this.select_plot = React.createRef()
         this.generateListLatLng = this.generateListLatLng.bind(this)
-        this.pattern = /(-?\d+(?:\.\d+)?).*?(-?\d+(?:\.\d+)?)/
+        this.pattern = /(-?\d+(?:\.\d+)?).*?(-?\d+(?:\.\d+)?)(?:\s+(.*))?/
     }
 
     generateListLatLng = (s) => {
         let r = s.split('\n').filter((s) => {
             return this.pattern.exec(s) != null
-        }).map((s) => {
+        }).map((s, idx) => {
             let g = this.pattern.exec(s)
-            return [parseFloat(g[1]), parseFloat(g[2])]
+            let comment = idx
+                
+            if (typeof g[3] !== 'undefined' && g[3].trim() !== '') {
+                comment = g[3]
+            }
+            // alert(comment)
+            return {
+                latitude: parseFloat(g[1]),
+                longitude: parseFloat(g[2]),
+                comment: comment
+            }
         })
 
         if (r == null) {

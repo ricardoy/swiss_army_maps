@@ -16,10 +16,10 @@ class SimpleMap extends Component {
     positions: []
   };
 
-  render() {
+  render() {    
     const markers = this.props.positions.map((p) => 
-                <Marker position={p} key={p.toString()}>                  
-                  <Popup>{p.toString()}</Popup>
+                <Marker position={[p.latitude, p.longitude]} key={p.toString()}>                  
+                  <Popup>{p.comment}</Popup>
                 </Marker>
               )
 

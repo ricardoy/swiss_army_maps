@@ -18,9 +18,14 @@ class App extends Component {
     }
 
     updatePositions(e) {
-        if (e.length > 0) {
-            let newPosition = e.reduce((x, y) => [x[0]+y[0], x[1]+y[1]])            
+        if (e.length == 1) {
+            this.setState({
+                position: [e[0].latitude, e[0].longitude]
+            })
+        } else if (e.length > 1) { 
+            let newPosition = e.map((x) => [x.latitude, x.longitude]).reduce((x, y) => [x[0] + y[0], x[1] + y[1]])                        
             newPosition = [newPosition[0] / e.length, newPosition[1] / e.length]
+            
             this.setState({
                 position: newPosition
             })
