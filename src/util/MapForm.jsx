@@ -4,12 +4,36 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 import CloseButton from 'react-bootstrap/CloseButton'
-
+import { jsonToString } from 'webpack/lib/Stats';
 
 class MapForm extends Component {
     static defaultProps = {
-      
+        updatePosition: () => {},
+        cleanMarkers: () => {}
     };
+
+    constructor(props) {
+        super(props);
+        this.textarea = React.createRef();
+        this.generateListLatLng = this.generateListLatLng.bind(this)
+        this.pattern = /(-?\d+(?:\.\d+)?).*?(-?\d+(?:\.\d+)?)/
+    }
+
+    generateListLatLng = (s) => {
+        let r = s.split('\n').filter((s) => {return this.pattern.exec(s) != null}).map((s) => {
+            let g = this.pattern.exec(s);
+            return [parseFloat(g[1]), parseFloat(g[2])]
+        })
+
+        if (r == null) {
+            return []
+        }
+        return r
+    }
+
+    handleClick() {
+        this.props.updatePosition(this.generateListLatLng(this.textarea.current.value))
+    }    
   
     render() {
       return (        
@@ -41,11 +65,13 @@ class MapForm extends Component {
                 </Form.Control>
             </Form.Group> */}
             <Form.Group controlId="exampleForm.ControlTextarea1">
-                <Form.Label>Example textarea</Form.Label>
-                <Form.Control as="textarea" rows="10" />
+                {/* <Form.Label>Example textarea</Form.Label> */}
+                <Form.Control as="textarea" rows="10" ref={this.textarea}/>
             </Form.Group>
+            
             <Form.Group controlId="exampleForm.ControlTextarea1">
-                <Button>Ok</Button>
+                <Button onClick={this.handleClick.bind(this)}>Ok</Button>
+                <Button onClick={this.props.cleanMarkers}>Clear</Button>
             </Form.Group>
             
         </Form>

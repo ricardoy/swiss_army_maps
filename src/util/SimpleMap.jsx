@@ -11,10 +11,7 @@ class SimpleMap extends Component {
 
   static defaultProps = {
     position: [-23.596299, -46.635222],
-    positions: [
-      [-23.596299, -46.635222],
-      [-23.593629, -46.632222]
-    ]
+    positions: []
   };
 
   render() {
