@@ -33,8 +33,8 @@ class MapForm extends Component {
             return this.pattern.exec(s) != null
         }).map((s, idx) => {
             let g = this.pattern.exec(s)
-            let comment = idx
-                
+            let comment = 'Pin ' + idx
+
             if (typeof g[3] !== 'undefined' && g[3].trim() !== '') {
                 comment = g[3]
             }
