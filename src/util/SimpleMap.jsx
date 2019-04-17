@@ -6,7 +6,9 @@ import Button from 'react-bootstrap/Button';
 class SimpleMap extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      rawtext: ''
+    };
   }
 
   static defaultProps = {

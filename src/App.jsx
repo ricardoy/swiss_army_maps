@@ -33,8 +33,8 @@ class App extends Component {
                 {/* <Draggable> */}
                     <div id="mapForm"  style={{
                         position: "absolute",
-                        top: "10%",
-                        right: "10%",
+                        right: "5%",
+                        top: "5%",
                         zIndex: 200
                         }}>
                         <MapForm updatePosition={this.updatePosition.bind(this)} cleanMarkers={this.cleanMarkers.bind(this)} />
