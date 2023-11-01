@@ -12,7 +12,7 @@
 
     #### `git clone https://github.com/ricardoy/swiss_army_maps`
 
-4. Change diretory to `swiss_army_maps`.
+4. Change folder to `swiss_army_maps`.
 
 5. Install the dependencies:
 
@@ -23,5 +23,3 @@
     #### `yarn start`
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-Enjoy!
